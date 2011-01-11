@@ -1,0 +1,66 @@
+%& -shell-escape
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\newcounter{excnt}
+\newtheorem{exer}[excnt]{Exercise}
+
+\begin{document}
+\section*{FIFO Preflow Push Algorithm} % (fold)
+\label{sec:fifo_preflow_push_algorithm}
+	\begin{proof}[Proof of Theorem 17]
+		Correctness: Theorem 15 \checkmark
+
+		Partition the examination of nodes into phases:
+		\begin{description}
+			\item[Phase 1:] examination of nodes active after \textsc{InitPreflow}
+			\item[Phase $i,i>1$:] examination of all nodes active (\glqq in Q\grqq) when phase $i-1$ is done.
+		\end{description}
+		Note: During each phase a node is examined at most once.
+
+		$n=|V|$:
+		\begin{description}
+			\item[Claim 1:] the number of phases is $\leq 4n^2 + n$
+			\begin{proof}
+				potential function $\phi := \max\{h(u)\ |\ e(u) > 0\}$\\
+				Change of $\phi$ over an entire phase:
+				\begin{description}
+					\item[1st case:]FIFO-PPA performs at least one \textsc{Lift} in the phase
+					\[
+						h(u) \leq 2n-1 \quad \forall u\in V
+					\]
+					at most $2n-1$ \textsc{Lift} operations per node.
+					$\rightsquigarrow$ total increase of $\phi$ over all such phases is at most $(2n-1)\cdot n < 2n^2$
+					\item[2nd case:] FIFO-PPA performs no \textsc{Lift}:\\
+					$\Rightarrow$ after examination of $u:\ e(u) = 0$\\
+					$\textsc{Push}(u,v):\ h(u) = h(v) + 1$\\
+					$\Rightarrow \phi$ decreases by at least 1.
+					\item[Initial value of $\phi$:] $\leq n$
+				\end{description}
+				$\Rightarrow$ total number of phases is at most $\underbrace{2n^2}_{\text{with}\textsc{ Lift}} + \underbrace{2n^2+n}_{\text{without}\textsc{ Lift}} = 4n^2 + n$
+
+				In each phase:
+				\begin{itemize}
+					\item at most one non-saturating push per node
+					\item each node is considered at most once in a phase
+				\end{itemize}
+				$\Rightarrow$ \# non-saturating pushes $\leq n(4n^2+n) = \mathcal{O}(n^3)$\\
+				\# saturating pushes $\underset{\text{L18}}{=} \mathcal{O}(n\cdot m) = \mathcal{O}(n^3)$\\
+				\# \textsc{Lift} $\underset{\text{C6}}{=} \mathcal{O}(n^3)$
+
+				$\Rightarrow$ total runtime $\mathcal{O}(n^3)$
+			\end{proof}
+		\end{description}
+	\end{proof}
+% section fifo_preflow_push_algorithm (end)
+\end{document}

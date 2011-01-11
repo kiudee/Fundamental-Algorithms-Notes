@@ -1,0 +1,66 @@
+%& -shell-escape
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\newcounter{excnt}
+\newtheorem{exer}[excnt]{Exercise}
+
+\begin{document}
+\section{Blatt 8} % (fold)
+\label{sec:blatt_8}
+	\subsection{Aufgabe 21c} % (fold)
+	\label{sub:aufgabe_21c}
+		Consider a cut $(S,T)$. Then we have:
+		\begin{align*}
+			\tilde{c}(S,T) &= \sum_{\substack{(u,v)\in\\ S\times T \cap E}} \bigl( M\cdot c(u,v) + 1 \bigr)\\
+			&=M\cdot \underbrace{\sum_{\substack{(u,v)\in\\ S\times T \cap E}} c(u,v)}_{c(S,T)} + \underbrace{|S\times T\cap E|}_{\text{\# edges from } S \text{ to } T}
+		\end{align*}
+	% subsection aufgabe_21c (end)
+
+	Let $f$ be a circulating flow. We have: $\forall U\subset V:$
+	\[
+		\sum_{\substack{
+				(u,v) \in\\
+				(U\times V)\cap E
+		}} f(u,v)
+		= \sum_{\substack{
+				(v,u)\in \\
+				(\bar{U},U)\cap E
+		}} f(v,u)
+	\]
+	\[
+		f(U,\bar{U}) = f(\bar{U},U)
+	\]
+	Induction on $|U|:$
+	\begin{description}
+		\item[(IB)] \(
+			|U|=0\checkmark
+		\)\\\(
+			|U| = 1: \text{ Wlog } x\in U:\ f(u,\bar{U}) = f(\bar{U},x)
+		\)
+		\item[(IS)] $|U'| = |U| + 1: \text{ Wlog set } U' = U \cup \{v\}:\ v\not\in U$\\
+			by \textbf{(IH)}: \[
+				f(U,\bar{U}) = f(\bar{U},U)
+			\]\[
+				f(U',\bar{U'}) = f(U,\bar{U}) - f(U,v) + f(v,\bar{U})
+			\]\[
+				f(\bar{U'})
+			\]
+
+			$\Rightarrow$ We know:
+			\[
+				f(U,\bar{U}) = f(\bar{U},U)
+			\]
+	\end{description}
+% section blatt_8 (end)
+\end{document}

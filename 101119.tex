@@ -1,0 +1,76 @@
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+\renewcommand\qedsymbol{$\blacksquare$} % QED-Symbol in Schwarz
+
+\begin{document}
+\begin{proof}[Proof of Lemma 10]
+	$d$ valid: $\quad d(u) \leq d(v) + 1\quad \forall (u,v)\in E_f.$\\
+	(by induction on the number of augment + retreat operations.)
+
+	(IB) $d(u) = \delta_G(u,t) \underset{f\equiv 0}{=} \delta_{G_f}(u,t)$ implies $d(u)\leq d(v) + 1 \quad \forall (u,v)\in E_f.$
+
+	(IS)
+	\begin{enumerate}[a)]\item augmentation along $(u,v) \in E_f.$
+		\begin{itemize}
+			\item remove $(u,v)$ from $E_f$
+			\item create an additional edge $(v,u)\in E_f$ and thus an additional inequality $d(v) \leq d(u) + 1$\\
+			We know: $d(u) = d(v) + 1$ because $(u,v)$ is admissible.
+			Thus $d(v) = d(u) - 1 < d(u) + 1$.
+		\end{itemize}
+		\item retreat from $u$ to $\pi(u)$ modifies $d(u)$. Let $d'(u) = \min\{ d(v) + 1|(u,v)\in E_f \}$\\
+		Thus, after retreat from $u \quad d'(u) \leq d(v) + 1\quad \forall (u,v)\in E_f$.\\
+		The alg retreats from $u$, when $u$ has no admissible edges $(u,v)\in E_f$.
+
+		By (IH) we have $d(u) < d(v) + 1\quad \forall (u,v)\in E_f$ and $d'(u) > d(u)$.\\
+		From this $d(w) \leq d'(u) + 1 \quad \forall (w,u)\in E_f.$
+	\end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of Theorem 13]
+	The algorithm terminates with  $d(s) \geq |V|$. By Note 10b there is no path from $s$ to $t$ in $G_f$. By Theorem 12 $f$ is a max flow.
+\end{proof}
+
+\begin{proof}[Proof of NM]
+	The algorithm performs a retreat at node $u$ only after it passed through the complete list $N(u)$. The relabelling passes through $N(u)$ a second time, resulting in a total time of $\mathcal{O}(|N(u)|)$ for each retreat.
+\end{proof}
+
+\begin{proof}[Proof of Lemma 11]
+	We show:\\
+	(*) Between two consecutive saturations of an edge $(u,v)$ both $d(u)$ and $d(v)$ must increase by at least 2 units.
+
+	\[
+		\overset{d(u)}{u} \longrightarrow \overset{d(v)+1}{v} \rightsquigarrow u \leftarrow v
+	\]
+	now $v$ must push flow to $u$:
+	\[
+		\overset{d(u)+1}{u} \longleftarrow \overset{d'(v)}{v}
+	\]
+	i.e. $d(v)$ increased by 2
+	\[
+		\overset{d'(u) = d(u)+2}{u} \longleftarrow \overset{d'(v) = d(u)+1}{v}\qedhere
+	\]
+\end{proof}
+
+If the algorithm retreats from any node $u$ at most $k$ times, we can conclude that any edge can be saturated at most $\not\frac{k}{2} \rightsquigarrow k$ times. $\rightsquigarrow$ at most $k|E|$ saturations.
+
+\begin{proof}[Sketch of Proof of Lemma 12]
+	Each update (retreat from $u$) of $d(u)$ increases $d(u)$ by at least 1. Nodes $u$ with $d(u) \geq |V|$ are never considered again. $\rightsquigarrow$ a)
+
+	b) L11 and L12a) $\Rightarrow$ algorithm saturates at most $\frac{|V|\cdot |E|}{\not2}$ edges. Since each augmentation saturates at least 1 edge:\\
+	\# augmentations $\leq |V|\cdot |E|$
+\end{proof}
+
+\begin{proof}[Proof of Theorem 14]
+		$n = |V|, m=|E|\quad$  L12, NM: the total effort to find admissable edges and to update the distance labels is $\mathcal{O}(nm)$. By L12:\\
+		Number of augmentations $\leq nm$, each of which takes $\mathcal{O}(n)$ time. So the total effort for augmentation is $\mathcal{O}(n^2m)$. The total number of retreats is $\mathcal{O}(n^2)$. Each advance adds an edge to $P$, each retreat deletes an edge from $P$. Since $P$ has at most $n$ edges, the alg. requires at most $\mathcal{O}(n^2 + n^2\cdot m)$ advance operations.
+\end{proof}
+\end{document}

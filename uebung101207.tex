@@ -1,0 +1,43 @@
+%& -shell-escape
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\newcounter{excnt}
+\newtheorem{exer}[excnt]{Exercise}
+
+\begin{document}
+\section*{Übungsblatt 7} % (fold)
+\label{sec:uebungsblatt_7}
+\subsection{subsection name} % (fold)
+\label{sub:subsection_name}
+
+% subsection subsection_name (end)
+	\[
+		h[s] = |V|,\quad h[t] = 0
+	\]
+	Choose $x,\ 0<x<|V|$, such that $\forall v\in V:\ h[v] \neq x$
+	\begin{proof}[Proof of correctness]
+		Need to show: $f(u,v) = c(u,v)\quad \forall u\in S,\ v\in T$
+		\[
+			\forall u\in S,\ v\in T:\quad (u,v) \not\in E_f
+		\]
+		Assume: $\exists u\in S,\ v\in T:\quad (u,v) \in E_f$
+		\begin{itemize}
+			\item $h$ is maintained and a height function. $\Rightarrow h[u] < h[v] +1$
+			\item $h[v] < x < h[u] \Rightarrow h[u] \leq h[u] - 2$
+			\item Altogether we have: $h[u] \leq h[v] + 1 \leq h[u] -2 + 1 = h[u] - 1 \lightning$
+		\end{itemize}
+	\end{proof}
+
+% section übungsblatt_7 (end)
+\end{document}

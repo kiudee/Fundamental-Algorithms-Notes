@@ -1,0 +1,88 @@
+%& -shell-escape
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\newcounter{excnt}
+\newtheorem{exer}[excnt]{Exercise}
+
+\begin{document}
+\section*{Laufzeit gPP-Algorithmus}
+	\begin{proof}[Proof of Lemma 16]
+		$u$ overflowing node. $U := \left\{ v\in V | u\underset{G_f}{\rightsquigarrow} v \right\}$, $\bar{U} := V\setminus U$.
+
+		Claim 1: $\forall (v,w) \in U\times \bar{U}$ we have $f(w,v) \leq 0$.\\
+		\[f(w,v) > 0 \Rightarrow f(v,w) < 0 \Rightarrow c_f(v,w) = \underbrace{c(v,w)}_{\geq 0} - f(v,w) > 0\]
+		\[
+			\Rightarrow (v,w)\in E_f \Rightarrow w\in U \lightning
+		\]\[
+			f(\bar{U},U) \leq 0 \Rightarrow e(U) := \sum_{u\in U} e(u) = f(V,U) \underset{\text{L6e}}{=} f(\bar{U},U) + \underbrace{f(U,U)}_{\underset{\text{L6a}}{=}0}
+			= f(\bar{U},U) \leq 0
+		\]
+		$f$ preflow: $e(u) \geq 0 \quad \forall u\in V\setminus \{s\}$
+
+		Then $s\not\in U \Rightarrow e(v) = 0 \quad \forall v\in U \lightning (u \text{ overflowing})$
+	\end{proof}
+
+	\begin{proof}[Proof of Lemma 17]
+		$n = |V|: h(s) = n, h(t) = 0$ unchanged \checkmark
+
+		$u$ overflowing $\underset{\text{Lemma 16}}{\Rightarrow} \exists P = (u=v_0,v_1,v_2,\ldots,v_k=s) \text{ in } G_f, k\leq n-1$ with
+		\[
+			h(v_i) = h(v_{i+1}) + 1\quad \forall i\in \{0,\ldots,k-1\}
+		\]
+		\[
+			h(u) = h(v_0) \leq h(v_k) + k \leq \underbrace{h(s)}_{=n} + k = n+k \leq 2n-1.
+		\]
+	\end{proof}
+
+	\begin{proof}[Proof of Corollary 6]
+		\textsc{Lift}$(u)$ increases $h(u)$ by at least 1 (Lemma 14) and $h(u) \leq 2n-1$ (Lemma 17). $s, t$ are never lifted.
+	\end{proof}
+
+	\begin{proof}[Proof of Lemma 18]
+		Let $(u,v)\in E$. As in the proof of Lemma 11 we get:
+		Between any two successive saturating pushes from $u$ to $v$, $h(u)$ and $h(v)$ increase by at least 2.
+		\[
+			(u,v)\in E: A = \left( a_k \right)_{k=1,2,\ldots}\quad a_k := h(u) + h(v) 
+		\]
+		when the $k$-th saturating push between $u$ and $v$ occurs.
+		\[
+			a_1 \geq 1, a_k\underset{\text{L17}}\leq 2n-1 + 2n-2 = 4n-3
+		\]
+		\[
+			a_k \text{ is odd}, a_i \neq a_j\ i\neq j \Rightarrow k \leq \left\lfloor\frac{4n-3}{2} + 1 \right\rfloor= 2n-1
+		\]
+		\end{proof}
+	\begin{proof}[Proof of Lemma 19]
+		$n=|V|, m=|E|, X = \{u\in V| e(u) > 0\}$ overflowing nodes.
+
+		Potential function $\phi = \sum_{u\in X} f(u)$
+
+		\textsc{InitPreflow}(): $\phi = 0$
+
+		\textsc{Lift}(u): $X$ is unchanged, $h(u) \underset{\text{L14}}{\leq} 2n-1$
+			$\Rightarrow \phi$ increases by at most $2n-1$.
+
+		$\underset{\text{saturating}}{\textsc{Push}(u,v)}$: $h$ is unchanged, $v$ may become overflowing, $u$ may stay overflowing.
+		$h(v) \leq 2n-1 \Rightarrow \phi$ increases by at most $2n-1$.
+
+		$\underset{\text{unsaturating}}{\textsc{Push}(u,v)}$: $h$ is unchanged, $u$ is removed from $X$, $v$ may be added to $X$. $\Rightarrow \phi$ decreases by 1.
+
+		Cor. 6, L18 $\Rightarrow$ total increase of $\phi$ is at most
+		\[
+			(2n-1)\cdot \underbrace{2n^2}_{\textsc{\#Lift}} + (2n-1) \underbrace{2n\cdot m}_{\text{\# sat }\textsc{Push}} \leq 4n^2 (n+m) \Rightarrow \text{\# of non. sat. pushes is } \leq 4n^2(n+m)
+		\]
+	\end{proof}
+\end{document}

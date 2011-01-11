@@ -1,0 +1,43 @@
+%& -shell-escape
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\newcounter{excnt}
+\newtheorem{exer}[excnt]{Exercise}
+
+\begin{document}
+\section{Sheet 10} % (fold)
+\label{sec:sheet_10}
+	Let $G=(V,E)$ be a graph with a perfect matching $m$. $|M|=\frac{n}{2}$
+	\begin{equation}
+		\forall u\in V: \exists! v\in V\setminus\{u\}:\{u,v\}\in M
+	\end{equation}
+	If Paula chooses an edge $\{u_1,v_1\}\in M$ in the first round
+	\[
+		\overset{(1)}{\Rightarrow} \forall u_2\in V\setminus\{u_1,v_1\}:\{v_1,u_2\}\not\in M
+	\]
+	\[
+		\Rightarrow \text{ Paul chooses edge } \{v_2,u_2\},u_2\in V\setminus\{u_1,v_1\}:\{v_1,u_2\}\not\in M
+	\]
+	\[
+		\overset{(2)}{\Rightarrow} \text{ Paula can choose an edge } \{u_2,v_2\} \text{ with } v_2\in V\setminus\{?\}:\{u_2,v_2\}\in M
+	\]
+	In round $\frac{n}{2} =: N$ Paula can choose an edge $\{u_N,v_N\}\in M$.
+	\[
+		V\setminus\{u_1,u_2,\ldots,u_N,v_1,\ldots,v_N\}=\emptyset
+	\]
+	\[
+		\Rightarrow \text{ Paul cannot choose any edge}
+	\]
+% section sheet_10 (end)
+\end{document}

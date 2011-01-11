@@ -1,0 +1,84 @@
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\begin{document}
+	\section*{Proof of Lemma 9} % (fold)
+	\label{sec:proof_of_lemma_9}
+		Let $(S,T)$ be a cut of $G$. Then
+		\[
+			f(S,T) \underset{\text{L6c}}{=} f(S,V) - f(S,S) \underset{\text{L6c)}}{=} f(s,V) + \underbrace{f(S-s,V)}_{=0,\text{ Def 16a) flow cons}} = f(s,V) \underset{\text{Def 16b}}{=} |f|.
+		\]
+	% section proof_of_lemma_9 (end)
+	\section*{Proof of Corollary 4} % (fold)
+	\label{sec:proof_of_corollary_4}
+		Let $f$ be any flow, let $(S,T)$ be any cut. Then
+		\[
+			|f| \underset{\text{L9}}{=} f(S,T) = \sum_{u\in S}\sum_{v\in T} \underbrace{f(u,v)}_{\leq c(u,v)} \underset{\text{cap constr}}{\leq}
+			\sum_{u\in S}\sum_{v\in T} c(u,v) = c(S,T)
+		\]
+	% section proof_of_corollary_4 (end)
+	\section*{Proof of Theorem 12} % (fold)
+	\label{sec:proof_of_theorem_12}
+		We show a) $\Rightarrow$ b) $\Rightarrow$ c) $\Rightarrow$ a)\\
+		\glqq a) $\Rightarrow$ b)\grqq\\ Suppose t.t.c. that $f$ is maximum flow, but $G_f$ has augmenting path $P$. Then, by corollary 3, $f+f_P$, with
+		\[
+			f_P(u,v) = \begin{cases}
+				c_f(P), &\text{ if }(u,v)\in P\\
+				-c_f(P), &\text{ if }(v,u)\in P\\
+				0, \text{otherwise}
+			\end{cases}
+		\]
+		is a flow in $G$ with $|f+f_P| > |f|$. Contradiction!\\
+		\glqq b) $\Rightarrow$ c)\grqq\\
+		Let $f$ be such that $G_f$ does not contain any augmenting path.
+		Define \[
+			S:=\{v\in V|s\underset{G_f}{\rightsquigarrow} v\},\\ T:= V-S
+		\]
+		Then $s\in S, t\in T$ and $S\cup T = V, S\cap T=\emptyset, \text{ so } (S,T)$ is a cut.\\
+		For each $(u,v)\in S\times T$ we have $f(u,v) = c(u,v)$ because $c_f(u,v) = c(u,v) - f(u,v) = 0$
+		\[
+			\overbrace{s \rightsquigarrow u}^{S} \not\rightarrow \overbrace{v \quad t}^{T}
+		\]
+		By Lemma 9 $|f| = f(S,T) = c(S,T)$.\\
+		\glqq c) $\Rightarrow$ a)\grqq\\
+		By corollary 4 $|f| \leq c(S,T)$ for all cuts $(S,T)$ in $G$.\\
+		So $|f| = c(S,T)$ implies that $f$ is maximum.
+	% section proof_of_theorem_12 (end)
+	\section*{Proof of corollary 5} % (fold)
+	\label{sec:proof_of_corollary_5}
+		FordFulkerson starts with an admissible flow $f\equiv 0$.
+
+		As long as an augmenting path $P$ exists in $G_f$ we have that the function adds a flow $f_P$ to $f$, resulting in an admissible flow $f+f_P$, with $|f+f_P| > |f|.$ (Cor 3)
+
+		After the while-loop $G_f$ does not contain an augmenting path and therefore $f$ is maximum (Theorem 12). In each iteration of the while-loop the value of $|f|$ is increased by at least $1$ ($c$ is integral!). The computation of an augmenting path can be done in $\mathcal{O}(|E|)$. $\rightsquigarrow$ Total $\mathcal{O}(|E| \cdot |f|)$.
+	% section proof_of_corollary_5 (end)
+	\section*{Proof of Note 10} % (fold)
+	\label{sec:proof_of_note_10}
+	\begin{enumerate}[a)]
+		\item Let $u\in V,\ P = (u = u_0, u_1, u_2, \ldots, u_k = t)$ be a shortest path from $u$ to $t$ in $G_f$. Then $\delta_{G_f}(u,t) = k$ and 
+		\begin{align*}
+			d(u_k) &= 0 = \delta_{G_f}(u_k,t)\\
+			d(u_{k-1}) &\leq d(u_k) + 1 = 1\\
+			d(u_{k-2}) &\leq d(u_{k-1}) + 1 \leq 2\\
+			&\vdots\\
+			d(u) &= d(u_0) \leq d(u_1) + 1 \leq k = \delta_{G_f}(u,t)
+		\end{align*}
+		\item By a) $\delta_{G_f}(s,t) \geq d(s) \geq |V|$, and thus no simple path from $s$ to $t$ in $G_f$ exists.
+		\item Let $P$ be n admissible path in $G_f$ from $s$ to $t$. Then $P$ is an augmenting path $\left(c_f(u,v) > 0!)\right)$. Since $d(u) = d(v)+1\ \forall (u,v)\in P$ we have that $d(s) = $ number of edges of $P$. Since $d(s) \leq \delta_{G_f}(s,t),$ $P$ must be a shortest path.
+		\end{enumerate}
+	% section proof_of_note_10 (end)
+
+
+
+
+
+
+\end{document}

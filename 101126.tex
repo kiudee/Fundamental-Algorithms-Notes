@@ -1,0 +1,82 @@
+% -----------------------------------------------
+%     Dokumentenklasse:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+
+% -----------------------------------------------
+%     Pakete:
+% -----------------------------------------------
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+
+% -----------------------------------------------
+%     Einstellungen:
+% -----------------------------------------------
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+\renewcommand\qedsymbol{$\blacksquare$} % QED-Symbol in Schwarz
+
+\begin{document}
+\section*{Preflow Algorithms}
+	\begin{proof}[(Sketch) Proof of Note 14]
+		capacity constraints: $d_f(u,v) \leq c_f(u,v) \Rightarrow f(u,v) + d_f(u,v) \leq c(u,v)$
+
+		skew symm.: clear
+
+		flow conservation relaxation: $d_f(u,v)\leq e(u) \Rightarrow e(u) - d_f(u,v) \geq 0$
+	\end{proof}
+
+	\begin{proof}[Proof of Note 15]
+		Let $e(u) = f(V,u) > 0 \Rightarrow \exists v\in V$ so that $f(u,v) > 0$.
+		\[
+			\Rightarrow c_f(u,v) = c(u,v) - f(u,v) \underset{\text{skew symm}}{=} \underbrace{c(u,v)}_{\geq 0} + \underbrace{f(v,u)}_{>0} >0 \Rightarrow (u,v)\in E_f
+		\]
+	\end{proof}
+
+	\begin{proof}[Proof of Note 17]
+		$f$ preflow \checkmark, $\quad e$ is excess flow \checkmark
+		\[
+			h(u) = \left.\begin{cases}
+				|V|, &\text{ if } u=s\\
+				0, &\text{ otherwise}
+			\end{cases}\right\} \Rightarrow h(u) > h(v) + 1 \text{ only if } u=s
+		\]
+		But $c_f(s,v) = c(s,v) - \underbrace{f(s,v)}_{=c(s,v)} = 0 \Rightarrow (s,v)\not\in E_f$.
+	\end{proof}
+
+	\begin{proof}[Proof of Lemma 13]
+		By def of a height function we have $h(u) \leq h(v) + 1 \forall (u,v)\in E_f$.
+
+		Suppose we can not apply push to node $u$. Then, for all $(u,v)\in E_f$
+		(there is always such an edge by Note 15) we must have $h(u) < h(v) + 1$.
+		\[
+			\Rightarrow h(u) \leq h(v) \Rightarrow \textsc{ Lift} \text{ can be applied to } u
+		\]
+	\end{proof}
+
+	\begin{proof}[Proof of Lemma 14]
+		(Proof: see proof of lemma 10)
+	\end{proof}
+
+	\begin{proof}[Proof of Lemma 15]
+		Suppose to the contrary that there is a path from $s$ to $t$ in $G_f: (s=v_0,v_1,\ldots,v_k=t) = P.$ Wlog $P$ is simple and thus $k<|V|$.
+
+		Because $h$ is a height function $h(v_i) \leq h(u_{i-1})+1\ \forall i\in \{0,\ldots,k-1\}$.
+
+		But then $|V| = h(s) \leq \underbrace{h(t)}_{=0} + k = k<|V|\ \lightning$
+	\end{proof}
+
+	\begin{proof}[Proof of Theorem 15]
+		If gPP terminates, then neither \textsc{Lift} nor \textsc{Push} is applicable.
+
+		By L13 $e(u) = 0\ \forall u\in V\setminus\{s,t\}$. By L14 $h$ is a height function, by Notes 17 and 14 $f$ is a preflow. Therefore $f$ is a flow.
+
+		Because $h$ is a height function , by L15 there is no path from $s$ to $t$ in $G_f$. By Theorem 12, $f$ is a maximum flow.
+	\end{proof}
+\end{document}

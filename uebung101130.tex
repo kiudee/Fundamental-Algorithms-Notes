@@ -1,0 +1,44 @@
+%& -shell-escape
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\newcounter{excnt}
+\newtheorem{exer}[excnt]{Exercise}
+
+\begin{document}
+\section*{Übungsblatt 6}
+	\setcounter{excnt}{16}
+	\begin{exer}
+		Given a flow network $(G,s,t,c)$, the algorithm \textsc{ShortestAugmentingPaths} correctly computes a maximum flow, even if the termination criterion of the practical improvement is used.
+	\end{exer}
+	\begin{proof}[Proof of Ex. 17]
+		Suppose $\exists (u,v) \in E_f$ with $u\in S,\ v\in T$.\\
+		By construction of $(S,T)$ we know :
+\[
+	d(u) > i_1;\ d(v) < i_1 \Rightarrow d(v) + 1 \leq i_1
+\]
+\[
+	\Rightarrow d(u) > i_1 \geq d(v) + 1 \lightning
+\]
+
+Show now $(S,T)$ is a minCut:
+\begin{align*}
+	\forall u\in S, v\in T:\quad& c_f(u,v) = c(u,v) - f(u,v) \leq 0\\
+	\Leftrightarrow &c(u,v) \leq f(u,v) \Rightarrow c(u,v) = f(u,v)
+\end{align*}
+\[
+	f(S,T) = |f| = c(S,T)
+\]
+Noch zu beweisen: Rückwärtiger Fluss ist 0
+	\end{proof}
+\end{document}

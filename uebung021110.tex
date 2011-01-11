@@ -1,0 +1,45 @@
+% ===============================================
+%     skript.tex - Hauptdatei des Skripts        
+% ===============================================
+
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm,includehead]{geometry}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\begin{document}
+\section*{Blatt 2}
+\subsection*{Beweis:}
+\glqq$\Leftarrow$\grqq:(IH) After pass $i$ of the outer loop, it holds
+$$d[v_j] < \infty\quad \forall j \leq i$$
+Assumption: $s \rightsquigarrow_G v = (v_0 =:s, v_1, \ldots, v_k =: v)$\\
+(IB) $i=0$: $d[v_i] = d[s] = 0 < \infty$\\
+(IS) $i>0, i-1\rightarrow i:$ We know, after the $i-1$th pass: $d[v_0] < \infty\quad \forall j\leq i-1$\\
+In the $i$-th pass: $(v_{i-1},v_i)$ is relaxed\\
+$\Rightarrow$ after relaxing $d[v_i] \leq d[v_{i-1}] + w(v_{i-1},v_{i}) \leq \infty$\\
+
+\glqq$\Rightarrow$\grqq: We know $d[v] < \infty$. Show: $s \rightsquigarrow_G v$\\
+$d[v] < \infty \Rightarrow v=s\quad \text{or}\quad v\neq s$ and\\
+There was a Relax-operation on an edge $(v_1, v) \in E$, which updated $d[v] \Rightarrow d[v_1] < \infty$\\
+$\Rightarrow$ either $v_1 = s \Rightarrow (s=v_1,v)$ is a path from $s$ to $v$ in $G$ or $v_1 \neq s$ and there was a Relax-operation on an edge
+$(v_2,v_1)\in E$, which updated $d[v_1] \Rightarrow d[v_2] < \infty$\\
+$\Rightarrow$ either $v_2 = s \Rightarrow \ldots$ or $\ldots$\\
+After at most $|V| - 1$ iterations of this argumentation we get that there exists a Relax-operation or an edge $(s=v_k, v_{k-1})\in E$ which updated $d[v_{k-1}] = d[v_k] <\infty$\\
+$\Rightarrow v_k = s \Rightarrow (s=v_k,v_{k-1},\ldots,v_1,v)$ is a path in $G$ from $s$ to $v$.
+
+\end{document}
+
+
+
+
+
+
+
+

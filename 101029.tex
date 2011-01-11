@@ -1,0 +1,29 @@
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm,includehead]{geometry}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{xfrac}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\begin{document}
+\section*{Beweis: Floyd-Warshall Lemma 4}
+\subsection*{a)}
+By induction on $k$.
+$$k=0: \text{A shortest path from } i\to j \text{ without intermediate nodes has weight } w_{ij}$$
+$$k>0: \text{Let } P \text{ be a shortest path from } i\to j \text{ with intermediate nodes from } [k]$$
+$P$ is simple, since edge weights are nonnegative.\\
+If $k\not\in P$ then $w(P) = d_{ij}^{(k-1)}$.\\
+If $k\in P$ then $P=P_{ik} P_{kj}$ and\\
+$w(P) = w(P_{ik}) + w(P_{kj}) = d_{ik}^{(k-1)} + d_{kj}^{(k-1)}$
+
+\section*{Beweis: Lemma 5 (Shortest Paths and Matrix Multiplication)}
+By induction on $m$:
+$m=0:$ correct.\\
+$m>0: \delta_{ij}^{(m)} = \min\left\{\underbrace{\delta_{ij}^{(m-1)}}_{\text{paths with }\leq m-1\text{ edges}}, \min_{k\in[n]} \left\{\underbrace{\delta_{ij}^{(m-1)}}_{\text{paths with } \leq m-1\text{ edges}} + \underbrace{w_{ij}}_{1 \text{edge}}\right\}\right\}$ \\
+$\undertext{=}_{w_{ik}=0 \forall k} \min_{k\in[n]} \left\{ \delta_{ik}^{(m-1)} + w_{kj} \right\}$\\
+Since $G$ does not contain negative weight cycles, shortest paths are simple and thus $\delta(i,j) - \delta_{ij}^{(n-1)}$.
+\end{document}	

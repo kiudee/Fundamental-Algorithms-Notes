@@ -1,0 +1,63 @@
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm,includehead]{geometry}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\begin{document}
+\section*{Proof of Note 7}
+\begin{enumerate}
+	\item $f(u,v) = -f(v,u) \Rightarrow f(u,u) = 0$
+	\item $\sum_{u\in V} f(u,v) = \sum_{u\in V} f(v,u) = 0$
+	\item $(u,v),(v,u)\not\in E \Rightarrow c(u,v) = 0 = c(v,u)$\\
+	$\Rightarrow f(u,v) \leq c(u,v) = 0,\quad f(v,u) \leq 0 \Rightarrow d)$
+\end{enumerate}
+
+\section*{Proof of Lemma 6}
+a) $$2\cdot f(X,X) = \sum_{x\in X}\sum_{y\in X} f(x,y) + \sum_{y\in X} \sum_{x\in X} f(y,x)$$
+$$=\sum_{x\in X}\sum_{y\in X} f(x,y) + f(y,x) = 0$$
+b) $$f(X,Y) = \sum_{x\in X}\sum_{y\in Y} f(x,y)$$
+$$=\sum_{x\in X}\sum_{y\in Y}-f(y,x)=-\sum_{y\in Y}\sum_{x\in X} f(y,x) = -f(Y,X)$$
+c) $$f(X\cup Y,Z) = \sum_{x\in X} \sum_{z\in Z} f(x,z) + \sum_{y\in Y}\sum_{z\in Z} f(y,z) = f(X,Z) + f(Y,Z)$$
+
+\section*{Proof of Lemma 7}
+\begin{enumerate}
+	\item Capacity constraints:
+		$$(f+f')(u,v) = f(u,v) + f'(u,v)\leq f(u,v) + c_f(u,v)$$
+		$$\leq f(u,v) + c(u,v) - f(u,v) = c(u,v)$$
+	\item Skew symmetrie:
+		$$(f+f')(u,v) = f(u,v) + f'(u,v) = -f(v,u) - f'(v,u) = -(f+f')(v,u)$$
+	\item Flow conservation:
+		$$\forall u\in V-\{s,t\} \text{ we have}$$
+		$$\sum_{v\in V} (f+f')(u,v) = \sum_{v\in V} f(u,v) + \sum_{v\in V} f'(u,v) = 0$$
+	\item $$|f+f'|= \sum_{v\in V}(f+f')(v,t)$$
+	$$=\sum_{v\in V} f(v,t) + \sum_{v\in V} f'(v,t) = |f| + |f'|$$
+\end{enumerate}
+
+\section*{Proof of Lemma 8} % (fold)
+\label{sec:proof_of_lemma_8}
+\begin{enumerate}
+	\item Capacity constraint:
+		\[
+			(u,v)\in P: f_P(u,v) = c_f(P) = \min\{c_f(u,v)| (u,v)\in P\}\leq (u,v)\]
+			\[
+			(u,v)\not\in P: f_P(u,v) \leq 0 \leq c(u,v)-f(u,v) = c_f(u,v)
+		\]
+	\item Skew symmetrie: clear
+	\item Flow cons:
+		\[
+			u\not\in P: \sum_{v\in V} f_P(u,v) = 0\\
+			u\in P: s\rightsquigarrow x\to u\to y\rightsquigarrow t
+		\]
+		\[
+			\sum_{v\in V} f_P(u,v) = f_P(u,x) + f_P(u,y) \underset{\text{skew}}{=} f_P(u,y) - f_P(x,u) = c_f(P) - c_f(P) = 0
+		\]
+\end{enumerate}
+% section proof_of_lemma_8 (end)
+\end{document}

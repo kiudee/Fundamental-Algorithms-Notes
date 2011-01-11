@@ -1,0 +1,24 @@
+%& -shell-escape
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\usepackage{preview}
+\usepackage{dot2texi}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\begin{document}
+\section*{Übungsblatt 5}
+	\begin{proof}[Proof of Ex13d)]
+		\[
+			|f| = c(S,T) \quad \text{suppose } \exists (x,y)\in E: x\in S, y\in T\text{ and } f(x,y) > f(e)
+		\]
+		when removing $(x,y)$, it holds that the new flow $f': |f'|=|f|-f((x,y) < |f| - f(e))$
+	\end{proof}
+\end{document}
