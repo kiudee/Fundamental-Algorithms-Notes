@@ -18,6 +18,8 @@
 \begin{document}
 \section{Sheet 10} % (fold)
 \label{sec:sheet_10}
+	\subsection{Aufgabe 26} % (fold)
+	\label{sub:aufgabe_26}
 	Let $G=(V,E)$ be a graph with a perfect matching $m$. $|M|=\frac{n}{2}$
 	\begin{equation}
 		\forall u\in V: \exists! v\in V\setminus\{u\}:\{u,v\}\in M
@@ -39,5 +41,32 @@
 	\[
 		\Rightarrow \text{ Paul cannot choose any edge}
 	\]
+	% subsection aufgabe_26 (end)
+
+	\subsection{Aufgabe 27} % (fold)
+	\label{sub:aufgabe_27}
+	Show:
+	\begin{enumerate}[(1)]
+		\item If $T$ is a transversal in $A$, then the edges corresponding to the entries of $T$ form a matching
+		\item If $M$ is a matching in $G$, then the entries correspond to the edges in $M$ form a transversal.
+	\end{enumerate}
+	\begin{proof}
+		\begin{enumerate}[(1)]
+			\item Let $T$ be a transv. of $A$
+			\[
+				\forall a_{ij}\in T: a_{ij}\neq 0 \Rightarrow \{u_i,v_j\}\in E
+			\]
+			\[
+				\forall a_{ij},a_{kl} \in T: i\neq k \text{ (not in the same row)}
+			\]
+			\[
+				\wedge j\neq l \text{ (not in the same column}
+			\]
+			\[
+				\Leftrightarrow \text{ no two edges corresponding to positions in } T \text{ are independent.}
+			\]
+		\end{enumerate}
+	\end{proof}
+	% subsection aufgabe_27 (end)
 % section sheet_10 (end)
 \end{document}
