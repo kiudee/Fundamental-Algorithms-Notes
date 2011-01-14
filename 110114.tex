@@ -1,0 +1,81 @@
+%& -shell-escape
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{jeffe}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\newcounter{excnt}
+\newtheorem{exer}[excnt]{Exercise}
+
+\newcommand{\Ra}{\Rightarrow}
+
+\begin{document}
+\section*{Vorlesung 14.01.2011 - StringMatching} % (fold)
+\label{sec:vorlesung_14_01_2011}
+	
+	\begin{proof}[Proof of Lemma 2]
+		Let $x\in \Sigma^*$ and $a\in \Sigma$, $\sigma(xa) =: r$
+		\begin{description}
+			\item[Case 1] \( r=0,\text{ie} \sigma(xa) = 0 \leq \underbrace{\sigma(x)}_{0} + 1\)
+			\item[Case 2] $r>0 \Rightarrow P_r\sqsupset xa \Rightarrow P_{r-1} \sqsupset x$
+			\[
+				r-1 \leq \sigma(x) \Rightarrow r\leq \sigma(x) + 1
+			\]
+		\end{description}
+	\end{proof}
+
+	\begin{proof}[Proof of Lemma 3]
+		Let $x\in \Sigma^{*}, a\in \Sigma$
+		Show: \[
+			q=\sigma(x) \Ra \sigma(xa) = \sigma(P_q a)
+		\]
+		\begin{itemize}
+			\item Let $r=\sigma(xa) \overset{L2}{\Ra} \sigma(xa) = r \leq \underbrace{\sigma(x)}_{q} +1,$ i.e. $r\leq q+1 = |P_q a|$
+			\item $P_q a \sqsupset xa, P_r \sqsupset xa, |P_r| \leq |P_q a|$
+			\[
+				\overset{L1b}{\Ra} P_r \sqsupset P_q a \Ra \sigma(xa) = r \leq \sigma(P_q a)
+			\]
+			\item $P_q a \sqsupset xa$
+			\[
+				\overset{Note 1d)}{\Ra} \sigma(P_q a) \leq \sigma(xa)
+			\]
+			\[
+				\sigma(P_q a) = \sigma(xa)
+			\]
+		\end{itemize}
+	\end{proof}
+
+	\begin{proof}[Proof of Theorem 4]
+		Proof by induction on $i$:
+		\begin{description}
+			\item[(IB)] $i=0: \delta^*(\underset{\epsilon}{T_0}) = 0 = \sigma(\overset{\epsilon}{T_0}) \checkmark$
+			\item[(IS)] $i\to i+1:$ Assume $\delta^*(T_i) = \sigma(T_i),$ for some $i\in\mathbb{N}$\\
+			Let $q:= \delta^*(T_i), a:= t_{i+1}$\\
+			Then\begin{align*}
+				\delta^*\left(T_{i+1}\right) &= \delta^*(T_i a)\\
+											 &= \delta \bigl( \delta^*(T_i), a \bigr) \text{ by def}\\
+											 &= \delta(q,a)\\
+											 &= \sigma(P_q a)\\
+											 &\overset{*}{=} \sigma{T_i a}\\
+											 &= \sigma(T_{i+1})
+			\end{align*}
+		\end{description}
+	\end{proof}
+
+	\begin{proof}[Corollary 5]
+		By Theorem 4, if $M_p$ enters state $a$, then $\delta^*(P_q)=\sigma(P_q)$.
+		i.e. $q$ is the largest prefix of $P$ which is a suffix of $q$.
+
+		Thus, $q=m \Lra P_q = P \sqsupset T_i$
+	\end{proof}
+% section vorlesung_14_01_2011 (end)
+\end{document}
