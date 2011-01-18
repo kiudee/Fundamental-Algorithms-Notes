@@ -1,0 +1,71 @@
+%& -shell-escape
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{jeffe}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\newcounter{excnt}
+\newtheorem{exer}[excnt]{Exercise}
+
+\begin{document}
+
+
+
+\section*{Sheet 11}
+
+
+\subsection*{Exercise 29}
+\begin{proof}[Lower Bound]
+	Suppose $C_n$ has a matching of size $k$. $\Ra n-2k$ nodes are unmatched. These $n-2k$  nodes fall into $k$ „buckets“ between matched edges around $C_n$.
+
+	If a bucket contains more than one node, the matching is not maximal.\\
+	$\Ra$ If $n-2k \geq k+1 \Ra$ matching is not maximal\\
+	$\Ra$ For a maximal matching it must hold: $n-2k\leq k \Ra k\geq \frac{n}{3}$.\\
+	$\Ra$ lower bound for the size of a maximal matching is $\left\lceil \frac{n}{3}\right\rceil$
+\end{proof}
+
+
+\subsection*{Exercise 30}
+Let $G=(V,E)$ be a bipartite graph.\\
+Define $\bigl( G'=(V',E'),s,t,c \bigr)$ as follows:
+\[
+	V' = V_1 \cup V_2 \cup \{s,t\}
+\]\[
+	E' = \bigl\{ (s,i) | i \in V_1 \bigr\} \cup \bigl\{ (j,t) | v \in V_2 \bigr\} \cup E
+\]\[
+	c(u,v) = \begin{cases}
+		\infty, &\text{ if } u \in V_1, v\in V_2\\
+		1, &\text{ otherwise }
+	\end{cases}
+\]
+\begin{proof}
+Let $H$ be a vertex cover of $G$.\\
+Define \[
+	Q = \bigl\{ (s,i) | i\in H \cap V_1 \bigr\} \cup \bigl\{ (i,t) | i \in H \cap V_2 \bigr\}
+\]
+Since $H$ is a vertex cover, each directed path from $s$ to $t$ in $G'$ contains one edge in $Q$.\\
+$\Ra Q$ is a valid cut of size $|H|$.
+
+Let $(S,T)$ be a cut of capacity $k$ in $G'$.\\
+Since edges $e\in E\setminus E'$ have a capacity of $\infty$, the cut $(S,T)$ only contains edges from $E'\setminus E$.
+Define \[
+	H = \bigl\{ i | (s,i) \in S\times T \cap E' \bigr\} \cup \bigl\{ i | (t,i) \in S\times  T \cap E' \bigr\}
+\]
+Observe that each edge $(i,j) \in E\setminus E'$ defines a directed path $s\to i\to j\to t$ in $G'$.\\
+$\Ra (s,i) \in S\times T$ or $(j,t) \in S\times T$.\\
+$\Ra$ either $i\in H$ or $j \in H$.\\
+$\Ra H$ is a vertex cover of size $k$ in $G$.
+
+By the max-flow-min-cut Theorem it now holds that the maximum number of independent edges in $G$ equals the minimum number of nodes in a vertex cover of $G$.
+\end{proof}
+
+\end{document}
