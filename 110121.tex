@@ -1,0 +1,84 @@
+%& -shell-escape
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{jeffe}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{todonotes}
+
+\usetikzlibrary{arrows,automata,positioning}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\newcounter{excnt}
+\newtheorem{exer}[excnt]{Exercise}
+
+\begin{document}
+\section*{Vorlesung 21.01.2011 - StringMatching}
+\begin{proof}[Lemma 28] Running Time of ComputePrefixFunction is $\mathcal{O}(m)$\\
+	Sketch: Potential $\Phi(\mathrm{currentstate}):=k$
+	\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}
+		\draw (0,0) -- (5,0);
+		\draw (0,0) -- (0,5);
+
+		\draw (0.5,0) -- node[left]{$1$} (0.5,0.5);
+		\draw (0.5,0.5) -- (1,0.5);
+		\draw (1,0.5) -- node[left]{$1$}(1,1);
+		\draw (1,1) -- (1.5,1);
+		\draw (1.5,1) -- node[left]{$1$}(1.5,1.5);
+	\end{tikzpicture}
+	\end{figure}
+	\todo[inline]{Grafik vervollständigen}
+	Always: $k\geq 0$ \\
+	Initially: $k=0$\\
+	Total increase of $k$: $\leq m-2$\\
+	$\Ra$ total number of decrease-executions of „$k=\pi(k)$“ $\leq m-1$\\
+	$\Ra \mathcal{O}(m)$
+\end{proof}
+
+\begin{proof}[Lemma 29 Sketch] 
+	„$<$“ $i\in \pi^*(q) \Ra i\in \pi^u(q),\ u\in \N_0$\\
+	\begin{description}
+		\item[(IB)] $u=0 \Ra i=q \checkmark$
+		\item[(IS)] $P_{\pi(i)} \sqsupset P_i \underset{\text{IH}}{\sqsupset} P_q$
+	\end{description}
+
+	„$>$“ Suppose $\exists j \in \bigl\{ k | P_k \sqsupset P_q \bigr\}\setminus \pi^*(q).$ Wlog. $j$ maximal.
+	\[
+		q \in \bigl\{ k| P_k \sqsupset P_q \bigr\} \cap \pi^*(q) \Ra j<q
+	\]\[
+		j' = \min\bigl\{ r\in \pi^*(q) | r>j \bigr\}
+	\]
+	Then \[
+	\left.\begin{cases}
+		P_j \sqsupset P_q \text{ since } j\in \bigl\{ k|P_k \sqsupset P_q \bigr\}\\
+		P_j' \sqsupset P_q \text{ since } j'\in \pi^*(q) \text{ and } \mathrm{„<}\text{“}
+	\end{cases}\right\} \underset{\text{L25a}}{\Ra} P_j \sqsupset P_{j'}
+	\]
+	$j$ max, $\pi(j') = j \Ra j\in\pi^*(q) \lightning$
+\end{proof}
+
+\begin{proof}[Corollary 9]
+	If $r=\pi(q),$ then $P_r \sqsupset P_q$ and thus $r\geq 1$ implies $p_r=p_q$.\\
+	By Lemma 30, if $r\geq 1$ then \begin{align*}r&=1+\max\bigl\{ k\in \pi^*(q-1) | p_{k+1} = p_q \bigr\}\\
+	&= 1+\max\bigl\{ k|k\in E_{q-1} \bigr\} \text{ and } E_{q-1} \neq \emptyset
+	\end{align*}
+	If $r=0$, there is no $k\in \pi^*(q-1)$ for which we can extend $P_k$ to $P_{k+1}$ and get a suffix of $P_q$. Since then $\pi(q) > 0$. Thus $E_{q-1} = \emptyset$.
+\end{proof}
+
+\begin{proof}[Corollary 10]
+	$\pi(1) = 0\checkmark$
+
+	At the start of each iteration of the for-loop we have $k=\pi(q-1)$. This is maintained as an invariant. The while-loop searches through all values $k\in \pi^*(q-1)$ until one is found for which $p_{k+1} = p_q$. At that point $k=\max \{E_{q-1}\}$, so by Corollary 9 we can set $\pi(q)$ to $k+1$. If no such $k$ is found, $\pi(q)$ is correctly set to $0$.
+\end{proof}
+\end{document}
