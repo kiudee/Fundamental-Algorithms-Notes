@@ -1,0 +1,92 @@
+%& -shell-escape
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{jeffe}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\newcounter{excnt}
+\newtheorem{exer}[excnt]{Exercise}
+
+\begin{document}
+
+\section*{Sheet 12}
+\subsection*{Exercise 32}
+\textbf{Show:} $\exists W\in \Sigma^+, i,j\in \N: W^i=X, W^j=Y$.
+\begin{proof}
+$S:= XY=YX$
+$\Ra X \sqsubset S \wedge Y\sqsubset S \wedge X \sqsubset S \wedge Y \sqsubset S$\\
+$\Ra (X\sqsubset Y \vee Y\sqsubset X)$\\
+\begin{description}
+	\item[Case 1: ] $X\sqsubset Y \wedge Y\sqsupset X$\\
+		$X=AB\Ra Y=AB \Ra W = X = Y \ i,j=1$
+	\item[Case 2: ] $X\sqsubset Y \wedge X\sqsupset Y$\\
+		$X=AB\Ra Y=ABCAB$\\
+		$XY=ABABCAB \wedge YX=ABCABAB$\\
+		$\Ra C=AB,\ W=AB,\ i=1,\ j\geq 2$
+
+\end{description}
+\end{proof}
+
+
+\subsection*{Exercise 33}
+\[
+	P=babacabab
+\]\[
+	\sigma(x) = \max\bigl\{ k | P_k \sqsupset x \bigr\}
+\]\[
+	\delta(q,a) = \sigma(P_qa)
+\]
+
+
+\begin{center}
+\begin{tabular}{|l||c|c|c|c|c|c|c|c|c|c|}
+	\hline
+	$\delta$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\\hline\hline
+	$a$ & 0 & 2 & 0 & 4 & 0 & 6 & 0 & 8 & 0 & 4\\\hline
+	$b$ & 1 & 1 & 3 & 1 & 3 & 1 & 7 & 1 & 9 & 1\\\hline
+	$c$ & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0\\\hline
+\end{tabular}
+\end{center}
+\begin{align*}
+	\delta(0,a) &= \sigma(P_0a)\\
+	\delta(1,a) &= \sigma(P_1a)\\
+				&= \sigma(bc)\\
+	\delta(2,a) &= \sigma(P_2 a)\\
+				&= \sigma(bac)\\
+	\delta(3,a) &= \sigma(babc)\\
+	\ldots
+\end{align*}
+
+\subsection*{Exercise 34}
+Let $P\in \Sigma^*\cup\{\lozenge\},\ T\in \Sigma^*$
+\begin{enumerate}[(1)]
+	\item Split $P$ into $k\in \N$ substrings $P^{(1)},\ldots,P^{(k)}$ by using $\lozenge$ as split symbol.
+	\item Construct a string matching automaton $M_i$ for every $P^{(i)},i\in[k]$
+	\item Concatenate automaton $M_i$ with $M_{i+1} (i\in [k-1])$ by merging the final state $q$ of $M_i$ with the initial state $t$ of $M_{i-1}$ by removing all transitions from $q$ and keeping all transitions of $t$.
+	\item Choose the initial state of $M_1$ as the initial state of the constructed automaton and the final state of $M_k$ as final state.
+\end{enumerate}
+\begin{proof} by induction on $k$\\
+	\begin{description}
+		\item[(IB)] $k=1 \Ra M=M_1\checkmark$
+		\item[(IS)] $k\to k+1$.\\
+			\[
+				P = P^{(1)} \lozenge P^{(2)} \lozenge \dots \lozenge P^{(k)} \lozenge P^{(k+1)}
+			\]
+			Assume the automaton for $P^{(1)} \lozenge \dots \lozenge P^{(k)}$ works correct.\\
+			Show the automaton for $P^{(1)} \lozenge \dots \lozenge P^{(k)} \lozenge P^{(k+1)}$ works correct.\\
+			I.e. show that $M=\underbrace{M_1\circ \dots \circ M_k}_{\text{corr}}\circ M_{k+1}$ works correct.
+	\end{description}
+	Show: If $\tau$ contains an occurance of $P$, then $M$ reaches the final state. $\delta/\omega$ it doesnt
+\end{proof}
+
+
+\end{document}
