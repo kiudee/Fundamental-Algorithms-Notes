@@ -1,0 +1,65 @@
+%& -shell-escape
+% -----------------------------------------------
+%     Einstellungen zum Layout:
+% -----------------------------------------------
+\documentclass[12pt,oneside,a4paper,parskip=on,fleqn]{scrartcl}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{jeffe}
+\usepackage[noend]{algpseudocode}
+\setlength\parindent{0pt}   % Festlegen des Absatzeinzuges
+
+\newcounter{excnt}
+\newtheorem{exer}[excnt]{Exercise}
+
+\begin{document}
+\section*{Sheet 13}
+
+\subsection*{Exercise 35}
+\subsubsection*{a)}
+\begin{tabular}{|r||c|c|c|c|c|c|c|c|c|}
+\hline
+$q$      & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\\hline
+$p_q$    & $b$ & $a$ & $b$ & $a$ & $c$ & $a$ & $b$ & $a$ &$b$\\\hline
+$\pi(q)$ & 0 & 0 & 1 & 2 & 0 & 0 & 1 & 2 & 3\\\hline
+\end{tabular}
+\subsubsection*{b)}
+\begin{align*}
+	q &= 0,1,2,3,4,2,3,4,5,6,7,8,9\\
+	i &= 1,2,3,4,5,6,7,8,9,10,11,12
+\end{align*}
+
+\subsection*{Exercise 36}
+\begin{algorithmic}[1]
+	\Function{LCSubstr}{$S[1..m]$, $T[1..n]$}
+    \State $L \gets \mathrm{array}(1..m, 1..n)$
+    \State $z \gets 0$
+    \State $\mathrm{ret} \gets \emptyset$
+    \For{$i \gets 1..m$}
+        \For{$j \gets 1..n$}
+            \If{$S[i] = T[j]$}
+                \If{$i = 1$ or $j = 1$}
+                    \State $L[i,j] \gets 1$
+                \Else
+                    \State $L[i,j] \gets L[i-1,j-1] + 1$
+                \EndIf
+                \If{$L[i,j] > z$}
+                    \State $z \gets L[i,j]$
+                    \State $ret \gets \emptyset$
+                \EndIf
+                \If{$L[i,j] = z$}
+                    \State $ret \gets ret \cup {S[i-z+1..i]}$
+                \EndIf
+        	\EndIf
+        \EndFor
+    \EndFor
+    \Return
+    \EndFunction
+\end{algorithmic}
+
+\end{document}
